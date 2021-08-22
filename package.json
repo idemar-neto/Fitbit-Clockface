@@ -1,0 +1,28 @@
+{
+  "devDependencies": {
+    "@fitbit/sdk": "~4.3.0"
+  },
+  "fitbit": {
+    "appUUID": "80bd34e3-ed50-42f2-ad07-376184253ce3",
+    "appType": "clockface",
+    "appDisplayName": "Wakanda",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#000000",
+    "requestedPermissions": [
+      "access_heart_rate",
+      "access_activity"
+    ],
+    "buildTargets": [
+      "meson"
+    ],
+    "i18n": {
+      "en-US": {
+        "name": "Wakanda"
+      },
+      "pt-BR": {
+        "name": "Wakanda"
+      }
+    },
+    "defaultLanguage": "pt-BR"
+  }
+}
