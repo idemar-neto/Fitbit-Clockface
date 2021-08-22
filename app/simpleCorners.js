@@ -104,14 +104,17 @@ export function loadSettings(savedSettings) {
   setting24HourTime = settings["use24HourTime"];
   settingDistanceIsMetric = settings["useMetricDistance"];
   const useIconColorForCornerText = settings["useIconColorForCornerText"];
-  const backgroundColor = settings["backgroundColor"];
+  const useOneIconColor = settings["useOneIconColor"];
+  //const backgroundColor = settings["backgroundColor"];
   const iconColor = settings["iconColor"];
   const iconLColor = settings["iconLColor"];
   const textColor = settings["textColor"];
   const font = settings["font"];
+  const img = settings["image"]
   
+  document.getElementById("img").href = `${img}`;
   document.getElementsByClassName("clockfaceText").forEach(function(element) {element.style.fontFamily = `${font}`;});
-  colorizeElements(backgroundColor, iconColor, textColor, useIconColorForCornerText);
+  colorizeElements(iconLColor, iconColor, textColor, useIconColorForCornerText, useOneIconColor);
 }
 
 function parseSettings(savedSettings) {
@@ -120,20 +123,24 @@ function parseSettings(savedSettings) {
   settings["use24HourTime"] = preferences.clockDisplay === "24h";
   settings["useMetricDistance"] = units.distance === "metric";
   settings["useIconColorForCornerText"] = false;
-  settings["backgroundColor"] = "#ffff";
+  settings["useOneIconColor"] = false;
+  //settings["backgroundColor"] = "#ffff";
   settings["textColor"] = "#ffffff";
   settings["iconColor"] = "#ffffff";
-  //settings["iconLColor"] = "#ffffff";
+  settings["iconLColor"] = "#ffffff";
   settings["font"] = "SevilleSharp-Bold";
+  settings["image"] = "Pericles.png";
   
   //Load saved settings
   for (const key in savedSettings) {
     if (savedSettings[key] !== null && savedSettings[key] !== undefined) {
-      if (key === "use24HourTime" || key === "useMetricDistance" || key === "useIconColorForCornerText") { //Bool
+      if (key === "use24HourTime" || key === "useMetricDistance" || key === "useIconColorForCornerText" || key == "useOneIconColor") { //Bool
         settings[key] = savedSettings[key]; 
       } else if (key === "font") { //Text
         settings[key] = savedSettings[key][0].value;
-      } else if (key === "backgroundColor" || key === "iconColor" || key === "textColor") { //Color
+      } else if (key === "image"){
+        settings[key] = savedSettings[key][0].value;
+      }else if (key === "backgroundColor" || key === "iconColor" || key === "textColor" || key === "iconLColor") { //Color
         if (util.isValidHexColor(savedSettings[key]))
           settings[key] = savedSettings[key].trim();
       }
@@ -143,7 +150,7 @@ function parseSettings(savedSettings) {
   return settings;
 }
 
-function colorizeElements(backgroundColor, iconColor, textColor, useIconColorForCornerText) {
+function colorizeElements(iconLColor, iconColor, textColor, useIconColorForCornerText, useOneIconColor) {
   //const backgroundElements = [document.getElementById("background")];
   let iconElements = document.getElementsByClassName("icon");
   let iconLElements = document.getElementsByClassName("iconL");
@@ -152,14 +159,17 @@ function colorizeElements(backgroundColor, iconColor, textColor, useIconColorFor
   
   if (useIconColorForCornerText) {
     iconElements = iconElements.concat(cornerTextElements);
-    iconElements = iconLElements.concat(cornerTextElements);
+    iconLColor = iconColor;
     textElements = textElements.filter( function(el) { return iconElements.indexOf( el ) < 0; } );
-    textElements = textElements.filter( function(el) { return iconLElements.indexOf( el ) < 0; } );
+  }
+  
+  if(useOneIconColor){
+    iconLColor = iconColor;
   }
   
   //util.colorizeElements(backgroundElements, backgroundColor);
   util.colorizeElements(iconElements, iconColor);
-  util.colorizeElements(iconLElements, backgroundColor);
+  util.colorizeElements(iconLElements, iconLColor);
   util.colorizeElements(textElements, textColor);
 }
 

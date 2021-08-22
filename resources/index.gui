@@ -1,6 +1,6 @@
 <svg id="clockface" pointer-events="visible">
   <!--rect id="background" /-->
-   <image href="myImage.png" />
+   <image id="img" href="myImage.png"/>
   
   <text id="dateText" class="clockfaceText" />
   
