@@ -1,11 +1,11 @@
 {
   "devDependencies": {
-    "@fitbit/sdk": "~4.3.0"
+    "@fitbit/sdk": "^4.3.2"
   },
   "fitbit": {
-    "appUUID": "80bd34e3-ed50-42f2-ad07-376184253ce3",
+    "appUUID": "093b1429-b84c-4c03-9b6d-b51aeb76dd8c",
     "appType": "clockface",
-    "appDisplayName": "Wakanda",
+    "appDisplayName": "PagoNerd",
     "iconFile": "resources/icon.png",
     "wipeColor": "#000000",
     "requestedPermissions": [
@@ -17,12 +17,18 @@
     ],
     "i18n": {
       "en-US": {
-        "name": "Wakanda"
+        "name": "PagoNerd"
       },
       "pt-BR": {
-        "name": "Wakanda"
+        "name": "PagoNerd"
       }
     },
     "defaultLanguage": "pt-BR"
+  },
+  "dependencies": {
+    "@fitbit/sdk-cli": "^1.7.3"
+  },
+  "scripts": {
+    "build": "fitbit-build"
   }
 }
