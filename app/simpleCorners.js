@@ -38,6 +38,10 @@ let otherSensorNumber = null;
 let setting24HourTime = null;
 let settingDistanceIsMetric = null;
 
+const DATA_DIR = '/private/data/'
+let background_path = "";
+
+
 export function initClockface(savedSettings) {
   //Get handles for the UI elements
   dateElement = document.getElementById("dateText");
@@ -100,7 +104,7 @@ export function updateClockface() {
 export function loadSettings(savedSettings) {
   //Load any saved settings from the filesystem
   const settings = parseSettings(savedSettings);
-
+  
   setting24HourTime = settings["use24HourTime"];
   settingDistanceIsMetric = settings["useMetricDistance"];
   const useIconColorForCornerText = settings["useIconColorForCornerText"];
@@ -113,8 +117,17 @@ export function loadSettings(savedSettings) {
   const font = settings["font"];
 
   document.getElementsByClassName("clockfaceText").forEach(function (element) { element.style.fontFamily = `${font}`; });
-  document.getElementsByClassName("imgBg").forEach(function (element) { element.href = "watchFaces/" + `${imgBg}`; });
+  if(imgBg != "Galeria") {
+    document.getElementsByClassName("imgBg").forEach(function (element) { element.href = "watchFaces/" + `${imgBg}`; });
+  }
+  else {
+    document.getElementsByClassName("imgBg").forEach(function (element) { element.href = background_path; });
+  }
   colorizeElements(iconLColor, iconColor, textColor, useIconColorForCornerText, useOneIconColor);
+}
+
+export function setbgPath(bgPath) {
+  background_path = bgPath;
 }
 
 function parseSettings(savedSettings) {

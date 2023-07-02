@@ -1,4 +1,7 @@
 function clockfaceSettings(props) {
+  let screenWidth = 300;
+  let screenHeight = 300;
+
   return (
     <Page>
       <Section
@@ -25,9 +28,30 @@ function clockfaceSettings(props) {
             {name: "Pericles", value: "Pericles.png"},
             {name: "Spider-Man: ATS", value: "Spider-Man_ATS.png"},
             {name: "Spider-Man: ITS", value: "Spider-Man_ITS.png"},
-            {name: "Tim Maia", value: "Tim Maia.png"}
+            {name: "Tim Maia", value: "Tim Maia.png"},
+            {name: "Galeria", value: "Galeria"}
           ]}
         />
+        <Section  title={
+        <Text bold align="center">
+          BACKGROUND IMAGE
+        </Text>
+      }>
+        <ImagePicker
+          label="Current Image"
+          sublabel="Touch to change"
+          settingsKey="background-image"
+          imageWidth={ screenWidth }
+          imageHeight={ screenHeight }
+        />
+        <Button
+          label="None"
+          onClick={() => {
+            props.settingsStorage.removeItem('background-image')
+            props.settingsStorage.setItem('background-none', 'true')
+          }}
+        />
+      </Section>
         <Toggle
           settingsKey="use24HourTime"
           label="Usar formato de hora 24h"
